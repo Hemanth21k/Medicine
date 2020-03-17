@@ -48,8 +48,10 @@ def search(request):
         itemname = request.POST.get('itemname')
         print(itemname)
         item_obj = Item.objects.filter(name=itemname)
-        print(item_obj[0].price)
         num_items_in_cart = item_obj.count()
+        if num_items_in_cart==0:
+            messages.warning(request, "No such item!!")
+            return redirect('cart:searchpage')
         context = {'all_items': item_obj , 'num_items_in_cart': num_items_in_cart}
         return render(request, 'cart/product_card.html', context)
 
