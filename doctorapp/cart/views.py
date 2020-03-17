@@ -149,3 +149,4 @@ def checkout(request):
     
     num_items_in_cart = user.profile.cart_items.all().count()
     return render(request, 'cart/payment.html', {'num_items_in_cart': num_items_in_cart})
+
