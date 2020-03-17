@@ -1,53 +1,32 @@
 {% include 'home/navbar.html' %}
 {% load static %}
-{% block content %}
-<!-- <!DOCTYPE html>
-<html>
-<head>
-    <title>Product Card</title>
-    <meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
-	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
-    <script src="https://use.fontawesome.com/releases/v5.0.8/js/all.js"></script> -->
-    <link rel="stylesheet" href="{% static 'cart/product_card.css' %}">
-<!-- </head>
-<body>
-  <!-- <div> -->
-    <div class="search_div">
-    <!-- <input type="text" placeholder="Search..">
-    <div class="icon-wrap" id="image">
-        <svg version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="20" height="20" viewBox="0 0 20 20">
-          <path d="M18.869 19.162l-5.943-6.484c1.339-1.401 2.075-3.233 2.075-5.178 0-2.003-0.78-3.887-2.197-5.303s-3.3-2.197-5.303-2.197-3.887 0.78-5.303 2.197-2.197 3.3-2.197 5.303 0.78 3.887 2.197 5.303 3.3 2.197 5.303 2.197c1.726 0 3.362-0.579 4.688-1.645l5.943 6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z"></path>
-        </svg>
-      </div> -->
+
+
+<link rel="stylesheet" href="{% static 'cart/product_card1.css' %}">
+
+ <br>
     <div class="form-group has-search">
-      <span class="fa fa-search form-control-feedback"></span>
-      <input type="text" class="form-control" placeholder="Search">
+      <form method="POST" action="{% url 'cart:search' %}">
+        {% csrf_token %}
+            <input type="text" name="itemname" id="itemname"  placeholder="Search">
+            <button id="but" type="submit"><i class="fa fa-search"></i></button>
+        </div>
+        
+        
+      </form>
+      
     </div>
-  </div>
-<!-- </div> -->
-    <!-- <img src="bg_custom.svg" class="img-fluid" alt="custom bg"> -->
-        <div class="row">
+
+        {%comment%}<div class="row">
           {% for item in all_items %}
           <!-- <div class="col-12 col-sm-8 col-md-2 col-lg-4"> -->
             <div class="col-md-3">
+              <div class="card-deck">
             <div class="card">
               <img class="card-img img-fluid" id="image" src="{{ item.image }}" height='2000px' width='300px' alt="Tablets">
               <div class="card-body">
                 <a href="{% url 'cart:product_page' item.id %}" id="link"><h5 class="card-title">{{item.name}}</h5>
                 <h6 class="card-subtitle mb-2 text-muted">Vitamin Supplement</h6></a>
-                <!-- <div class="options d-flex flex-fill">
-                  <select class="custom-select ml-1">
-                      <option selected>Dosage</option>
-                      <option value="1">100mg</option>
-                      <option value="2">200mg</option>
-                      <option value="3">300mg</option>
-                  </select>
-                </div> -->
-                <!-- <a href="{% url 'cart:add_to_cart' item.id %}"><i class="fas fa-plus ml-2"></i></a> -->
                 <div class="buy d-flex justify-content-between align-items-center">
                   <div class="price text-success">
                     <span><h5 class="mt-4">Rs. {{ item.price }}</h5></span>
@@ -57,14 +36,64 @@
                 </div> 
               </div>
             </div>
+            </div>
           </div>
-          {% endfor %}
+          {% endfor %} 
+          </div>
+          {%endcomment%}
+          
+          <div class="row total">
+            {% for item in all_items %}
+            <div class="col-md-3">
+              <div class="card-deck">
+                <div class="card">
+                  <img src="{{item.image}}" class="card-img-top"  alt="..." height="200px" width="200px">
+                  <div class="card-body">
+                    <a href="{% url 'cart:product_page' item.id %}" id="link"><h5 class="card-title">{{item.name}}</h5></a>
+                    <p class="card-text">Rs. {{item.price}}</p>
+                    <!-- <a href="{% url 'cart:add_to_cart' item.id %}" class="btn btn-danger mt-3"><i class="fas fa-shopping-cart" style="color:white"></i>Add to Cart</a> -->
+                    <!-- <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p> -->
+                  </div>
+                  <div class="card-footer">
+                    <a href="{% url 'cart:add_to_cart' item.id %}" class="btn btn-danger" id="center"><i class="fas fa-shopping-cart mr-2" style="color:white"></i>Add to Cart</a>
+                  </div>
+                </div>
+                </div>
+            </div>
+            {%endfor%}
+          </div>
+          <!-- <div class="card-deck">
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a longer card with supporting text below as a natural lead-in to additional content. This content is a little bit longer.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            
+             <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This card has supporting text below as a natural lead-in to additional content.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div>
+            <div class="card">
+              <img src="..." class="card-img-top" alt="...">
+              <div class="card-body">
+                <h5 class="card-title">Card title</h5>
+                <p class="card-text">This is a wider card with supporting text below as a natural lead-in to additional content. This card has even longer content than the first to show that equal height action.</p>
+                <p class="card-text"><small class="text-muted">Last updated 3 mins ago</small></p>
+              </div>
+            </div> 
+          </div> -->
           
           
-        </div>
+     
         {% if all_items.paginator.num_pages > 1 %}
         {% include 'cart/pagination.html' with items=all_items %}
     {% endif %}
   </body>
 
-{% endblock %}

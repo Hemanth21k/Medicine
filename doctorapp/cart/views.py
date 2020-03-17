@@ -42,6 +42,18 @@ def shoppingcart(request):
     num_items_in_cart=user.profile.cart_items.all().count()
     return render(request, 'cart/shopping-cart.html', {'num_items_in_cart': num_items_in_cart, 'all_user_items': all_user_items, 'tot_cost': tot_cost})
 
+def search(request):
+    print(request.method)
+    if request.method == 'POST':
+        itemname = request.POST.get('itemname')
+        print(itemname)
+        item_obj = Item.objects.filter(name=itemname)
+        print(item_obj[0].price)
+        num_items_in_cart = item_obj.count()
+        context = {'all_items': item_obj , 'num_items_in_cart': num_items_in_cart}
+        return render(request, 'cart/product_card.html', context)
+
+
 def searchpage(request):
     all_items = Item.objects.all()
     user = request.user
@@ -49,7 +61,7 @@ def searchpage(request):
         num_items_in_cart=0
         context = {'all_items': all_items , 'num_items_in_cart': num_items_in_cart, 'order_active': 'active'}
         return render(request, 'cart/product_card.html', context)
-    paginator = Paginator(all_items, 2)
+    paginator = Paginator(all_items, 4)
     page = request.GET.get('page')
     all_items = paginator.get_page(page)
     # paginate_by = 2
