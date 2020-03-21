@@ -17,6 +17,10 @@ from django.utils.encoding import force_bytes
 from .tokens import account_activation_token
 from django.template.loader import render_to_string
 from django.core.mail import send_mail, EmailMessage
+from django.views.generic import CreateView
+
+# from user.forms import StudentSignUpForm
+# from user.models import User
 
 def index(request):
 	user = request.user
@@ -96,5 +100,21 @@ def Login(request):
 def profilepage(request):
 	user=request.user
 	all_items = user.profile.cart_items.all()
-	print(all_items)
-	return render(request, 'user/profile.html', {'all_items':all_items})
+	num_items_in_cart = all_items.count()
+	# print(all_items)
+	context = {'all_items':all_items, 'num_items_in_cart':num_items_in_cart}
+	return render(request, 'user/profile.html', context)
+
+# class StudentSignUpView(CreateView):
+#     model = User
+#     form_class = StudentSignUpForm
+#     template_name = 'user/login_page_1.html'
+
+#     def get_context_data(self, **kwargs):
+#         kwargs['user_type'] = 'student'
+#         return super().get_context_data(**kwargs)
+
+#     def form_valid(self, form):
+#         user = form.save()
+#         login(self.request, user)
+#         return redirect('students:quiz_list')

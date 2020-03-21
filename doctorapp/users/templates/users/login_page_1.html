@@ -50,6 +50,24 @@
          <span class="spin"></span>
       </div>
 
+      <div class="d-block my-3">
+         {%comment%}{% for value, name in form.fields.payment_option.choices %}
+         <div class="custom-control custom-radio">
+           <input id="{{name}}" name="payment_option" value="{{ value }}" type="radio"
+             class="custom-control-input" required>
+           <label class="custom-control-label" for="{{name}}">{{ name }}</label>
+         </div>
+         {% endfor %}{%endcomment%}
+         <div class="custom-control custom-radio">
+           <input id="shop" name="category" type="radio" class="custom-control-input" required>
+           <label class="custom-control-label" for="shop">Shop</label>
+         </div>
+         <div class="custom-control custom-radio">
+           <input id="visitor" name="category" type="radio" class="custom-control-input" required>
+           <label class="custom-control-label" for="visitor">Visitor</label>
+         </div>
+       </div>
+
       <div class="button login">
          <button type="submit"><span>GO</span> <i class="fa fa-check"></i></button>
       </div>

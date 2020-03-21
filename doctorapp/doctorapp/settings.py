@@ -30,7 +30,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'user',
+    'users',
     'cart',
     'home',
     'six',
@@ -154,3 +154,5 @@ print ("base dir path", BASE_DIR)
 #Django Paypal Settings
 PAYPAL_RECEIVER_EMAIL='satyasaihemanth.p18@iiits.in'
 PAYPAL_TEST=True
+
+AUTH_USER_MODEL = 'users.User'

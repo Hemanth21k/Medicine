@@ -8,7 +8,7 @@
     <div class="form-group has-search">
       <form method="POST" action="{% url 'cart:search' %}">
         {% csrf_token %}
-            <input type="text" name="itemname" id="itemname"  placeholder="Search">
+            <input type="text" name="itemname" id="itemname"  placeholder="Search..">
             <button id="but" type="submit"><i class="fa fa-search"></i></button>
         </div>
         

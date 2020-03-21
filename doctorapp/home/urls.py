@@ -1,7 +1,7 @@
 from django.urls import path, include 
 from django.conf import settings 
 from . import views
-from user import views as user_view 
+from users import views as user_view 
 from django.contrib.auth import views as auth
 from django.conf.urls.static import static 
 from django.conf.urls import url

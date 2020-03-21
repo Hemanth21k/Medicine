@@ -1,4 +1,5 @@
 from .models import Item, Cart
+from django.contrib import messages
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
@@ -48,8 +49,10 @@ def search(request):
         itemname = request.POST.get('itemname')
         print(itemname)
         item_obj = Item.objects.filter(name=itemname)
-        print(item_obj[0].price)
         num_items_in_cart = item_obj.count()
+        if num_items_in_cart==0:
+            messages.warning(request, "No such item!!")
+            return redirect('cart:searchpage')
         context = {'all_items': item_obj , 'num_items_in_cart': num_items_in_cart}
         return render(request, 'cart/product_card.html', context)
 
@@ -146,6 +149,12 @@ def checkout(request):
     if not user.is_authenticated:
         num_items_in_cart=0
         return render(request, 'cart/payment.html', {'num_items_in_cart': num_items_in_cart})
-    
+    all_items = user.profile.cart_items.all()
+    tot_cost=0
+    for i in all_items:
+        print(i.quantity)
+        tot_cost += i.itemtotal
     num_items_in_cart = user.profile.cart_items.all().count()
-    return render(request, 'cart/payment.html', {'num_items_in_cart': num_items_in_cart})
+    
+    context = {'all_items': all_items , 'num_items_in_cart': num_items_in_cart, 'tot_cost': tot_cost}
+    return render(request, 'cart/payment.html', context)

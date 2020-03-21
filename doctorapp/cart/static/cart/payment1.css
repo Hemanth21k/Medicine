@@ -63,13 +63,13 @@
 }
 
 .payment-form .products .item-name{
-	font-weight:600;
+	font-weight: 700;
 	font-size: 0.9em;
 }
 
 .payment-form .products .item-description{
-	font-size:0.8em;
-	opacity:0.6;
+	font-size:1em;
+	opacity:0.8;
 }
 
 .payment-form .products .item p{

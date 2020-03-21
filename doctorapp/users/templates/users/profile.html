@@ -1,0 +1,11 @@
+{% include 'home/navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/profile.css' %}">
+<div class="block-heading">
+    <h2>Profile</h2>
+  </div>
+<h2>{{user.username}}</h2>
+{% for oitem in all_items %}
+<h2>{{oitem.item.name}}</h2>
+{%endfor%}
+<h2>{{user.history.ordered_date}}</h2>

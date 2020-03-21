@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path, include
 from django.conf.urls import url
-from user import views as user_view
+from users import views as user_view
 from django.contrib.auth import views as auth_views
 
 # app_name = 'doctorapp'
@@ -48,7 +48,7 @@ urlpatterns = [
     #      ),
     #      name='password_reset_complete'),
     ##### user related path#########################
-    path('user/', include('user.urls')),
+    path('user/', include('users.urls')),
     path('cart/', include('cart.urls')),
     path('paypal/', include('paypal.standard.ipn.urls')),
     path('payment/', include('payment.urls')),
