@@ -3,11 +3,12 @@ from django.shortcuts import render
 from paypal.standard.forms import PayPalPaymentsForm
 from django.views.decorators.csrf import csrf_exempt
 from django.conf import settings
-import datetime
 
 @csrf_exempt
 def payment_done(request):
-    return render(request, 'payment/done.html')
+    num_items_in_cart = 0
+    context = {'num_items_in_cart': num_items_in_cart}
+    return render(request, 'payment/done.html', context)
 
 
 @csrf_exempt
@@ -18,10 +19,10 @@ def payment_cancelled(request):
 def payment_process(request):
     # What you want the button to do.
     user = request.user
-    user.profile.history.ordered_items = user.profile.cart_items.all()
-    user.profile.history.ordered_date = datetime.datetime.now()
-    user.save()
-    print(user.profile.history.ordered_items)
+    # user.profile.history.ordered_items = user.profile.cart_items.all()
+    # user.profile.history.ordered_date = datetime.datetime.now()
+    # user.save()
+    # print(user.profile.history.ordered_items)
     cart_names = []
     amount = 0
     for obj in user.profile.cart_items.all():
@@ -42,5 +43,6 @@ def payment_process(request):
 
     # Create the instance.
     form = PayPalPaymentsForm(initial=paypal_dict)
-    context = {"form": form}
+    num_items_in_cart = user.profile.cart_items.all().count()
+    context = {"form": form, 'num_items_in_cart':num_items_in_cart}
     return render(request, "payment/payment.html", context)

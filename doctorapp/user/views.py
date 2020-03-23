@@ -96,5 +96,7 @@ def Login(request):
 def profilepage(request):
 	user=request.user
 	all_items = user.profile.cart_items.all()
-	print(all_items)
-	return render(request, 'user/profile.html', {'all_items':all_items})
+	num_items_in_cart = all_items.count()
+	# print(all_items)
+	context = {'all_items':all_items, 'num_items_in_cart':num_items_in_cart}
+	return render(request, 'user/profile.html', context)

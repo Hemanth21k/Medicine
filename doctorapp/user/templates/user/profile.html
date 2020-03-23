@@ -1,6 +1,11 @@
-<h1>Profile</h1>
-<h2>{{user.username}}</h2>
+{% include 'home/navbar.html' %}
+{% load static %}
+<link rel="stylesheet" href="{% static 'user/profile.css' %}">
+<div class="block-heading">
+    <h2>Profile</h2>
+  </div>
+<h4><b>Username:</b> {{user.username}}</h4>
+<h4><b>Cart Items: </b></h4>
 {% for oitem in all_items %}
-<h2>{{oitem.item.name}}</h2>
+<h4>{{oitem.item.name}}</h4>
 {%endfor%}
-<h2>{{user.history.ordered_date}}</h2>

@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib.auth.models import User
 from django.core.paginator import Paginator
+from django.contrib import messages
 
 # Create your views here.
 
@@ -148,7 +149,13 @@ def checkout(request):
     if not user.is_authenticated:
         num_items_in_cart=0
         return render(request, 'cart/payment.html', {'num_items_in_cart': num_items_in_cart})
-    
-    num_items_in_cart = user.profile.cart_items.all().count()
-    return render(request, 'cart/payment.html', {'num_items_in_cart': num_items_in_cart})
+    all_items = user.profile.cart_items.all()
+    num_items_in_cart = all_items.count()
+    tot_cost=0
+    for i in all_items:
+        print(i.quantity)
+        tot_cost += i.itemtotal
+    # print(tot_cost)
+    context = {'num_items_in_cart': num_items_in_cart, 'all_items':all_items, 'tot_cost':tot_cost}
+    return render(request, 'cart/payment.html', context)
 
