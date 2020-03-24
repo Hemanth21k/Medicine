@@ -4,8 +4,14 @@
 <div class="block-heading">
     <h2>Profile</h2>
   </div>
-<h4><b>Username:</b> {{user.username}}</h4>
-<h4><b>Cart Items: </b></h4>
-{% for oitem in all_items %}
-<h4>{{oitem.item.name}}</h4>
-{%endfor%}
+  <div class="content">
+    <h5><b>Username:</b> {{user.username}}</h5>
+    <h5><b>Cart Items: </b></h5>
+      {% for oitem in all_items %}
+    <h5>&emsp;- {{oitem.item.name}}</h5>
+    {%endfor%}
+    <hr>
+    <a class="btn btn-info mr-3" href="{% url 'password_change' %}">Change Password</a>
+    <a class="btn btn-info" href="{% url 'password_reset' %}">Reset Password</a>
+  </div>
+

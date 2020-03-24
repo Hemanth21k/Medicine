@@ -82,13 +82,15 @@ def Login(request):
 		print(user)
 		if user is not None:
 			form=login(request, user)
+			print(form)
 			messages.success(request, f'Welcome {username} !!')
 			user = request.user
 			user.save()
 			# print(user.profile.bio)
 			return redirect('home:landing')
 		else:
-			messages.info(request, f'Account done, please login')
+			messages.warning(request, "Such a user does not exist!!")
+			# return redirect('user:register')
 	form=AuthenticationForm()
 
 	return render(request, 'home/landingpage.html', {'form':form, 'title':'log in','user':user})

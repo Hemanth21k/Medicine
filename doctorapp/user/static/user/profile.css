@@ -1,9 +1,13 @@
 .block-heading{
     padding-top: 50px;
-    margin-bottom: 40px;
-    text-align: center;
+    margin: 30px;
+    /* text-align: center; */
+    margin-top: 0px;
 }
 .block-heading h2 {
 	margin-bottom:1.2rem;
 	color: #3b99e0;
+}
+.content {
+    margin: 30px;
 }
